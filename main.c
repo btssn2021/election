@@ -9,13 +9,17 @@ void nbvote();
 void affichageResultat();
 void cloturerScrutin();
 /***********************variables globales*******************************/
-float vote1=0,vote2=0,vote3=0,vote4=0;
-int nvote=0;
+int vote1=0,vote2=0,vote3=0,vote4=0;
 enum {CANDIDAT1=1,CANDIDAT2=2,CANDIDAT3=3,CANDIDAT4=4};
 bool scrutin=true; //scrutin ouvert
+
 int main() {
-   choixCandidat();
-    printf("%f %f %f %f",vote1,vote2,vote3,vote4);
+    while(true) {
+        if (scrutin) //scrutin==true
+            menu();
+        else
+            menuCloture();
+    }
 }
 
 void menuCloture() {
@@ -43,11 +47,16 @@ void menuCloture() {
 }
 
 void affichageResultat() {
+    int somme=vote1+vote2+vote3+vote4;
     printf("Affichage Résultat\n");
+    printf("Candidat %d %0.1f\%\n",CANDIDAT1,((float)vote1/somme)*100);
+    printf("Candidat %d %0.1f\%\n",CANDIDAT2,((float)vote2/somme)*100);
+    printf("Candidat %d %0.1f\%\n",CANDIDAT3,((float)vote3/somme)*100);
+    printf("Candidat %d %0.1f\%\n",CANDIDAT4,((float)vote4/somme)*100);
 }
 
 void nbvote() {
-    printf("Nbvote\n");
+    printf("Le nombre de votant est %d\n",vote1+vote2+vote3+vote4);
 }
 
 void menu() {
@@ -99,5 +108,6 @@ void choixCandidat() {
 }
 
 void cloturerScrutin() {
-    printf("Cloturer Scrutin");
+    printf("Cloture Scrutin\n");
+    scrutin=false;
 }
